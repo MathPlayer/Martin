@@ -20,7 +20,7 @@ $(BIN_DIR):
 	mkdir -p $@
 
 $(EXEC): $(OBJECTS) | $(BIN_DIR)
-	$(CXX) -o $@ $<
+	$(CXX) -o $@ $^
 
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.cc
 	$(CXX) -o $@ -c $(CXXFLAGS) $<
