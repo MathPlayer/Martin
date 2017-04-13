@@ -2,7 +2,13 @@
 
 #include <string>
 
+/** Defined modes of interaction with an UI. */
+#define UI_MODE_UCI     "uci"
+#define UI_MODE_XBOARD  "xboard"
+
 /**
- * Read command from stdin
+ * Start communication with the UI.
+ *
+ * @return 0 if everything is ok, an error code otherwise
  */
-std::string read_command();
+int init_communication();
