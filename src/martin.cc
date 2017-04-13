@@ -10,7 +10,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
     ret = init_communication();
     if (0 != ret) {
         std::cerr << "Init communication failed: " << ret << std::endl;
-        std::exit(EXIT_FAILURE);
+        std::exit(ret);
     }
 
     return 0;
