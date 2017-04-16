@@ -1,3 +1,4 @@
+#include "Board.h"
 #include "UICommunication.h"
 
 #include <iostream>
@@ -5,13 +6,16 @@
 
 int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 {
-    int ret;
+  int ret;
 
-    ret = init_communication();
-    if (0 != ret) {
-        std::cerr << "Init communication failed: " << ret << std::endl;
-        std::exit(ret);
-    }
+  Board *b = new Board();
+  std::cout << *b << std::endl;
 
-    return 0;
+  ret = initCommunication();
+  if (0 != ret) {
+    std::cerr << "Init communication failed: " << ret << std::endl;
+    std::exit(ret);
+  }
+
+  return 0;
 }
