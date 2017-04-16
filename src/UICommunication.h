@@ -11,4 +11,4 @@
  *
  * @return 0 if everything is ok, an error code otherwise
  */
-int init_communication();
+int initCommunication();
