@@ -37,6 +37,37 @@ inline enum PieceInfo Board::Get(enum SquareIndex index) const
   return this->board[index];
 }
 
+static const char *print_pieces[] = {
+  [NIL]          = "   ",
+#ifdef _WIN32
+  [WHITE_KING]   = " K ",
+  [WHITE_QUEEN]  = " Q ",
+  [WHITE_ROOK]   = " R ",
+  [WHITE_BISHOP] = " B ",
+  [WHITE_KNIGHT] = " N ",
+  [WHITE_PAWN]   = " P ",
+  [BLACK_KING]   = "*K*",
+  [BLACK_QUEEN]  = "*Q*",
+  [BLACK_ROOK]   = "*R*",
+  [BLACK_BISHOP] = "*B*",
+  [BLACK_KNIGHT] = "*N*",
+  [BLACK_PAWN]   = "*P*",
+#else
+  [WHITE_KING]   = " \u2654 ",
+  [WHITE_QUEEN]  = " \u2655 ",
+  [WHITE_ROOK]   = " \u2656 ",
+  [WHITE_BISHOP] = " \u2657 ",
+  [WHITE_KNIGHT] = " \u2658 ",
+  [WHITE_PAWN]   = " \u2659 ",
+  [BLACK_KING]   = " \u265A ",
+  [BLACK_QUEEN]  = " \u265B ",
+  [BLACK_ROOK]   = " \u265C ",
+  [BLACK_BISHOP] = " \u265D ",
+  [BLACK_KNIGHT] = " \u265E ",
+  [BLACK_PAWN]   = " \u265F ",
+#endif
+};
+
 std::ostream& operator<<(std::ostream& os, const Board &board)
 {
   os << "### board ###" << std::endl
@@ -48,60 +79,22 @@ std::ostream& operator<<(std::ostream& os, const Board &board)
   for (char i = 7; i >= 0; --i) {
     os << "# " << static_cast<short>(i) << " |";
     for (char j = 0; j < 8; ++j) {
-      switch(board.Get(i, j)) {
+      enum PieceInfo info = board.Get(i, j);
+      switch(info) {
         case WHITE_PAWN:
-          os << "  P  |";
-          break;
-
         case BLACK_PAWN:
-          os << " *P* |";
-          break;
-
         case WHITE_KNIGHT:
-          os << "  N  |";
-          break;
-
         case BLACK_KNIGHT:
-          os << " *N* |";
-          break;
-
-
         case WHITE_BISHOP:
-          os << "  B  |";
-          break;
-
         case BLACK_BISHOP:
-          os << " *B* |";
-          break;
-
         case WHITE_ROOK:
-          os << "  R  |";
-          break;
-
         case BLACK_ROOK:
-          os << " *R* |";
-          break;
-
-
         case WHITE_QUEEN:
-          os << "  Q  |";
-          break;
-
         case BLACK_QUEEN:
-          os << " *Q* |";
-          break;
-
-
         case WHITE_KING:
-          os << "  K  |";
-          break;
-
         case BLACK_KING:
-          os << " *K* |";
-          break;
-
         case NIL:
-          os << "     |";
+          os << " " << print_pieces[info] << " |";
           break;
 
         default:
