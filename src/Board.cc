@@ -40,9 +40,9 @@ inline enum PieceInfo Board::Get(enum SquareIndex index) const
 std::ostream& operator<<(std::ostream& os, const Board &board)
 {
   os << "### board ###" << std::endl
-     << "#" << std::endl
-     << "#----------------------------------------------------"
-     << std::endl;
+    << "#" << std::endl
+    << "#----------------------------------------------------"
+    << std::endl;
 
   // Put black on top and white on bottom
   for (char i = 7; i >= 0; --i) {
@@ -110,9 +110,11 @@ std::ostream& operator<<(std::ostream& os, const Board &board)
       }
     }
     os << std::endl
-     << "#----------------------------------------------------"
-     << std::endl;
+      << "#----------------------------------------------------"
+      << std::endl;
   }
   os << "#      a     b     c     d     e     f     g     h" << std::endl;
   os << "#" << std::endl;
+
+  return os;
 }
