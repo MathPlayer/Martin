@@ -11,9 +11,10 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
   Board *b = new Board();
   std::cout << *b << std::endl;
 
-  ret = initCommunication();
-  if (0 != ret) {
-    std::cerr << "Init communication failed: " << ret << std::endl;
+  UICommunication *c = new UICommunication();
+  ret = c->MainLoop();
+  if (ret) {
+    std::cerr << "MainLoop exit with error code: " << ret << std::endl;
     std::exit(ret);
   }
 

@@ -5,10 +5,10 @@
 #include <iostream>
 #include <string>
 
-#define UI_MODE_UCI	"uci"
-#define UI_MODE_XBOARD	"xboard"
+#define UI_MODE_UCI     "uci"
+#define UI_MODE_XBOARD  "xboard"
 
-static const char * const xboard_features[] = {
+const char * const UICommunication::xboard_features[] = {
 #ifdef DEBUG
   "feature debug=1",                  // show debug messages
 #endif
@@ -21,25 +21,28 @@ static const char * const xboard_features[] = {
   "feature done=1"                    // end of features
 };
 
-static std::string readCommand()
+std::string UICommunication::ReadCommand()
 {
   std::string ret;
   std::getline(std::cin, ret);
+#ifdef DEBUG
+    std::cout << "# received command: " << ret << std::endl;
+#endif
   return ret;
 }
 
-static void writeCommand(const std::string &command)
+void UICommunication::WriteCommand(const std::string &command)
 {
   std::cout << command << std::endl;
   // TODO: flush stdout
 }
 
-static int negociateXboardFeatures()
+int UICommunication::NegociateXboardFeatures()
 {
   const int N = sizeof(xboard_features) / sizeof(xboard_features[0]);
   for (int i = 0; i < N; i++) {
-    writeCommand(xboard_features[i]);
-    std::string ret = readCommand();
+    WriteCommand(xboard_features[i]);
+    std::string ret = ReadCommand();
     if (ret == "rejected") {
       std::cerr << "Error: command '" << xboard_features[i]
         << "' was rejected. Abort." << std::endl;
@@ -53,16 +56,22 @@ static int negociateXboardFeatures()
   return 0;
 }
 
-int initCommunication()
+int UICommunication::MainLoop()
 {
-  std::string received_command = readCommand();
-  int ret = 0;
-  if (received_command == UI_MODE_UCI) {
-    // TODO: send uci options
-  } else if (received_command == UI_MODE_XBOARD) {
-    ret = negociateXboardFeatures();
-  } else {
-    return EINVAL;
+  std::string command;
+  int exit_loop = 0;
+
+  while (!exit_loop) {
+    command = ReadCommand();
+    if (command == "quit") {
+      return 0;
+    } else if (command == "xboard") {
+      exit_loop = NegociateXboardFeatures();
+      if (exit_loop) {
+        std::cerr << "Xboard negociation failed" << std::endl;
+      }
+    } else {
+      return EINVAL;
+    }
   }
-  return ret;
 }

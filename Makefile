@@ -10,9 +10,12 @@ SOURCES := $(wildcard $(SRC_DIR)/*.cc)
 HEADERS := $(wildcard $(SRC_DIR)/*.h)
 OBJECTS := $(SOURCES:$(SRC_DIR)/%.cc=$(BIN_DIR)/%.o)
 
-.PHONY: all prebuild clean
+.PHONY: all prebuild debug clean
 
 all: prebuild $(EXEC)
+
+debug: CXXFLAGS += -DDEBUG
+debug: clean prebuild $(EXEC)
 
 prebuild: | $(BIN_DIR)
 
