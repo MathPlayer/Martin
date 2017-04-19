@@ -74,4 +74,5 @@ int UICommunication::MainLoop()
       return EINVAL;
     }
   }
+  return exit_loop;
 }
