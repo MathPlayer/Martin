@@ -34,14 +34,14 @@ struct board * get_new_board()
 	return b;
 }
 
-inline const enum piece_info board_get_from_indices(
+inline enum piece_info board_get_from_indices(
 		struct board *board, unsigned char i, unsigned char j)
 {
 	const enum square_index index = (i << 4) + j;
 	return board_get_from_index(board, index);
 }
 
-inline const enum piece_info board_get_from_index(
+inline enum piece_info board_get_from_index(
 		struct board *b, enum square_index index)
 {
 	if (index & 0x88)

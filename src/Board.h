@@ -109,9 +109,9 @@ struct board {
 
 struct board *get_new_board();
 
-const enum piece_info board_get_from_indices(
+enum piece_info board_get_from_indices(
 		struct board *b, unsigned char i, unsigned char j);
-const enum piece_info board_get_from_index(
+enum piece_info board_get_from_index(
 		struct board *b, enum square_index index);
 
 void board_print(struct board *b);
