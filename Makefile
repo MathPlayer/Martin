@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 CC := gcc
-CFLAGS := -Werror
+CFLAGS := -Wall -Wextra -Werror
 
 BIN_DIR := bin
 SRC_DIR := src
@@ -26,7 +26,7 @@ $(EXEC): $(OBJECTS) | $(BIN_DIR)
 	$(CC) -o $@ $^
 
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) -o $@ -c $(CCFLAGS) $<
+	$(CC) -o $@ -c $(CFLAGS) $<
 
 clean:
 	rm -rf $(EXEC) $(BIN_DIR)
